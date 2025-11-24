@@ -1,11 +1,11 @@
-import { base44 } from './base44Client';
+import {  } from './Client';
 
 
-export const Event = base44.entities.Event;
+export const Event = .entities.Event;
 
-export const Participant = base44.entities.Participant;
+export const Participant = .entities.Participant;
 
 
 
 // auth sdk:
-export const User = base44.auth;
+export const User = .auth;

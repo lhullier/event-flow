@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { base44 } from '@/api/base44Client';
+import {  } from '@/api/Client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -36,7 +36,7 @@ export default function EditParticipantDialog({ participant, eventId, onClose })
   });
 
   const updateParticipantMutation = useMutation({
-    mutationFn: (data) => base44.entities.Participant.update(participant.id, data),
+    mutationFn: (data) => .entities.Participant.update(participant.id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['participants', eventId] });
       onClose();

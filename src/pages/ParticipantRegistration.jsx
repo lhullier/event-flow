@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { base44 } from '@/api/base44Client';
+import {  } from '@/api/Client';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -45,7 +45,7 @@ export default function ParticipantRegistration() {
   const { data: event } = useQuery({
     queryKey: ['event', eventId],
     queryFn: async () => {
-      const events = await base44.entities.Event.filter({ id: eventId });
+      const events = await .entities.Event.filter({ id: eventId });
       return events[0];
     },
     enabled: !!eventId,
@@ -53,7 +53,7 @@ export default function ParticipantRegistration() {
 
   const { data: participants = [] } = useQuery({
     queryKey: ['participants', eventId],
-    queryFn: () => base44.entities.Participant.filter({ event_id: eventId }),
+    queryFn: () => .entities.Participant.filter({ event_id: eventId }),
     enabled: !!eventId,
   });
 
@@ -65,7 +65,7 @@ export default function ParticipantRegistration() {
       const timestamp = Date.now().toString();
       const regNumber = `${event.title.substring(0, 3).toUpperCase()}-${timestamp.substring(timestamp.length - 6)}`;
       
-      const participant = await base44.entities.Participant.create({
+      const participant = await .entities.Participant.create({
         event_id: eventId,
         registration_number: regNumber,
         cpf: data.cpf,
@@ -102,7 +102,7 @@ export default function ParticipantRegistration() {
 
     setUploading(true);
     try {
-      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      const { file_url } = await .integrations.Core.UploadFile({ file });
       setFormData({ ...formData, payment_proof_url: file_url });
     } catch (err) {
       setError('Erro ao fazer upload do comprovante');

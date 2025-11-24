@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { base44 } from '@/api/base44Client';
+import {  } from '@/api/Client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -35,13 +35,13 @@ export default function ManageOrganizers() {
   useEffect(() => {
     const loadUser = async () => {
       try {
-        const currentUser = await base44.auth.me();
+        const currentUser = await .auth.me();
         if (currentUser.role !== 'admin') {
           window.location.href = '/';
         }
         setUser(currentUser);
       } catch (err) {
-        base44.auth.redirectToLogin();
+        .auth.redirectToLogin();
       }
     };
     loadUser();
@@ -50,7 +50,7 @@ export default function ManageOrganizers() {
   const { data: organizers = [], isLoading } = useQuery({
     queryKey: ['organizers'],
     queryFn: async () => {
-      const users = await base44.entities.User.list();
+      const users = await .entities.User.list();
       return users.filter(u => u.role === 'user'); // 'user' role = organizer
     },
     enabled: !!user,
@@ -75,7 +75,7 @@ export default function ManageOrganizers() {
   });
 
   const updateOrganizerMutation = useMutation({
-    mutationFn: ({ id, data }) => base44.entities.User.update(id, data),
+    mutationFn: ({ id, data }) => .entities.User.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['organizers'] });
       setShowSuccess(true);
@@ -88,7 +88,7 @@ export default function ManageOrganizers() {
   });
 
   const deleteOrganizerMutation = useMutation({
-    mutationFn: (id) => base44.entities.User.delete(id),
+    mutationFn: (id) => .entities.User.delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['organizers'] });
     },
@@ -100,7 +100,7 @@ export default function ManageOrganizers() {
 
     setUploading(true);
     try {
-      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      const { file_url } = await .integrations.Core.UploadFile({ file });
       setFormData({ ...formData, profile_image_url: file_url });
     } catch (err) {
       alert('Erro ao fazer upload da imagem');
@@ -136,7 +136,7 @@ export default function ManageOrganizers() {
 
     setUploading(true);
     try {
-      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      const { file_url } = await .integrations.Core.UploadFile({ file });
       setEditFormData({ ...editFormData, profile_image_url: file_url });
     } catch (err) {
       alert('Erro ao fazer upload da imagem');

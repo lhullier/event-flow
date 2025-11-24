@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { base44 } from '@/api/base44Client';
+import {  } from '@/api/Client';
 import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -20,7 +20,7 @@ export default function EventDetails() {
   useEffect(() => {
     const loadUser = async () => {
       try {
-        const currentUser = await base44.auth.me();
+        const currentUser = await .auth.me();
         if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'user')) {
           alert('Acesso negado. Apenas organizadores podem visualizar detalhes de eventos.');
           navigate(createPageUrl('Dashboard'));
@@ -28,7 +28,7 @@ export default function EventDetails() {
         }
         setUser(currentUser);
       } catch (err) {
-        base44.auth.redirectToLogin();
+        .auth.redirectToLogin();
       }
     };
     loadUser();
@@ -37,7 +37,7 @@ export default function EventDetails() {
   const { data: event, isLoading } = useQuery({
     queryKey: ['event', eventId],
     queryFn: async () => {
-      const events = await base44.entities.Event.filter({ id: eventId });
+      const events = await .entities.Event.filter({ id: eventId });
       return events[0];
     },
     enabled: !!eventId,
@@ -45,7 +45,7 @@ export default function EventDetails() {
 
   const { data: participants = [] } = useQuery({
     queryKey: ['participants', eventId],
-    queryFn: () => base44.entities.Participant.filter({ event_id: eventId }),
+    queryFn: () => .entities.Participant.filter({ event_id: eventId }),
     enabled: !!eventId,
   });
 

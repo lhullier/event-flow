@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { base44 } from '@/api/base44Client';
+import {  } from '@/api/Client';
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -39,7 +39,7 @@ export default function ManualRegistration() {
   const { data: event } = useQuery({
     queryKey: ['event', eventId],
     queryFn: async () => {
-      const events = await base44.entities.Event.filter({ id: eventId });
+      const events = await .entities.Event.filter({ id: eventId });
       return events[0];
     },
     enabled: !!eventId,
@@ -47,7 +47,7 @@ export default function ManualRegistration() {
 
   const { data: participants = [] } = useQuery({
     queryKey: ['participants', eventId],
-    queryFn: () => base44.entities.Participant.filter({ event_id: eventId }),
+    queryFn: () => .entities.Participant.filter({ event_id: eventId }),
     enabled: !!eventId,
   });
 
@@ -59,7 +59,7 @@ export default function ManualRegistration() {
       const timestamp = Date.now().toString();
       const regNumber = `${event.title.substring(0, 3).toUpperCase()}-${timestamp.substring(timestamp.length - 6)}`;
       
-      return base44.entities.Participant.create({
+      return .entities.Participant.create({
         event_id: eventId,
         registration_number: regNumber,
         cpf: data.cpf,

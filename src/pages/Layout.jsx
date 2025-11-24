@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { base44 } from '@/api/base44Client';
+import {  } from '@/api/Client';
 import { Button } from '@/components/ui/button';
 import { Calendar, Users, PlusCircle, LogOut, Menu, X } from 'lucide-react';
 
@@ -13,18 +13,18 @@ export default function Layout({ children, currentPageName }) {
   useEffect(() => {
     const loadUser = async () => {
       try {
-        const currentUser = await base44.auth.me();
+        const currentUser = await .auth.me();
         setUser(currentUser);
       } catch (err) {
         // Not authenticated - redirect to login
-        base44.auth.redirectToLogin();
+        .auth.redirectToLogin();
       }
     };
     loadUser();
   }, []);
 
   const handleLogout = () => {
-    base44.auth.logout();
+    .auth.logout();
   };
 
   if (!user) {

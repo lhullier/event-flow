@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { base44 } from '@/api/base44Client';
+import {  } from '@/api/Client';
 import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,15 +16,15 @@ export default function Dashboard() {
   useEffect(() => {
     const loadUser = async () => {
       try {
-        const currentUser = await base44.auth.me();
+        const currentUser = await .auth.me();
         if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'user')) {
           alert('Acesso negado. Apenas organizadores podem acessar o sistema.');
-          base44.auth.redirectToLogin();
+          .auth.redirectToLogin();
           return;
         }
         setUser(currentUser);
       } catch (err) {
-        base44.auth.redirectToLogin();
+        .auth.redirectToLogin();
       }
     };
     loadUser();
@@ -33,8 +33,8 @@ export default function Dashboard() {
   const { data: events = [], isLoading } = useQuery({
     queryKey: ['events'],
     queryFn: async () => {
-      const allEvents = await base44.entities.Event.list('-created_date');
-      const allParticipants = await base44.entities.Participant.list();
+      const allEvents = await .entities.Event.list('-created_date');
+      const allParticipants = await .entities.Participant.list();
       
       // Conta participantes por evento
       const eventsWithCount = allEvents.map(event => ({

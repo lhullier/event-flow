@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { base44 } from '@/api/base44Client';
+import {  } from '@/api/Client';
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -40,7 +40,7 @@ export default function CheckIn() {
   const { data: event } = useQuery({
     queryKey: ['event', eventId],
     queryFn: async () => {
-      const events = await base44.entities.Event.filter({ id: eventId });
+      const events = await .entities.Event.filter({ id: eventId });
       return events[0];
     },
     enabled: !!eventId,
@@ -51,13 +51,13 @@ export default function CheckIn() {
       let participants;
 
       if (type === 'qr') {
-        participants = await base44.entities.Participant.filter({
+        participants = await .entities.Participant.filter({
           event_id: eventId,
           qr_code: value,
         });
       } else {
         const cpfClean = value.replace(/\D/g, '');
-        participants = await base44.entities.Participant.filter({
+        participants = await .entities.Participant.filter({
           event_id: eventId,
           cpf: cpfClean,
         });
@@ -87,7 +87,7 @@ export default function CheckIn() {
       const sessionsCount = attendedSessions.length;
       const attendancePercentage = Math.round((sessionsCount / totalSessions) * 100);
 
-      return base44.entities.Participant.update(participant.id, {
+      return .entities.Participant.update(participant.id, {
         check_in_status: true,
         check_in_date: new Date().toISOString(),
         attended_sessions: attendedSessions,
@@ -121,7 +121,7 @@ export default function CheckIn() {
 
   const confirmPaymentMutation = useMutation({
     mutationFn: async (participant) => {
-      await base44.entities.Participant.update(participant.id, {
+      await .entities.Participant.update(participant.id, {
         payment_status: 'pago',
       });
 
@@ -136,7 +136,7 @@ export default function CheckIn() {
       const sessionsCount = attendedSessions.length;
       const attendancePercentage = Math.round((sessionsCount / totalSessions) * 100);
 
-      return base44.entities.Participant.update(participant.id, {
+      return .entities.Participant.update(participant.id, {
         check_in_status: true,
         check_in_date: new Date().toISOString(),
         attended_sessions: attendedSessions,

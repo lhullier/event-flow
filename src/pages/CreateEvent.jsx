@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { base44 } from '@/api/base44Client';
+import {  } from '@/api/Client';
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -46,7 +46,7 @@ export default function CreateEvent() {
   useEffect(() => {
     const loadUser = async () => {
       try {
-        const currentUser = await base44.auth.me();
+        const currentUser = await .auth.me();
         if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'user')) {
           alert('Acesso negado. Apenas organizadores podem criar eventos.');
           navigate(createPageUrl('Dashboard'));
@@ -54,7 +54,7 @@ export default function CreateEvent() {
         }
         setUser(currentUser);
       } catch (err) {
-        base44.auth.redirectToLogin();
+        .auth.redirectToLogin();
       } finally {
         setLoading(false);
       }
@@ -65,7 +65,7 @@ export default function CreateEvent() {
   const { data: existingEvent } = useQuery({
     queryKey: ['event', eventId],
     queryFn: async () => {
-      const events = await base44.entities.Event.filter({ id: eventId });
+      const events = await .entities.Event.filter({ id: eventId });
       return events[0];
     },
     enabled: isEditing && !!eventId,
@@ -102,9 +102,9 @@ export default function CreateEvent() {
       };
       
       if (isEditing) {
-        return base44.entities.Event.update(eventId, dataToSave);
+        return .entities.Event.update(eventId, dataToSave);
       } else {
-        return base44.entities.Event.create(dataToSave);
+        return .entities.Event.create(dataToSave);
       }
     },
     onSuccess: () => {
@@ -119,7 +119,7 @@ export default function CreateEvent() {
 
     setUploading(true);
     try {
-      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      const { file_url } = await .integrations.Core.UploadFile({ file });
       setFormData({ ...formData, image_url: file_url });
     } catch (err) {
       console.error('Erro ao fazer upload:', err);

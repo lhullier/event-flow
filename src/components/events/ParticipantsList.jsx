@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { CheckCircle2, XCircle, Pencil, Trash2, Search, FileText, FileCheck } from 'lucide-react';
-import { base44 } from '@/api/base44Client';
+import {  } from '@/api/Client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import EditParticipantDialog from './EditParticipantDialog';
 
@@ -15,7 +15,7 @@ export default function ParticipantsList({ participants, eventId, event }) {
   const queryClient = useQueryClient();
 
   const deleteParticipantMutation = useMutation({
-    mutationFn: (participantId) => base44.entities.Participant.delete(participantId),
+    mutationFn: (participantId) => .entities.Participant.delete(participantId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['participants', eventId] });
     },
